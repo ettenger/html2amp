@@ -1,8 +1,8 @@
 service:
   name: html2amp
 # app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+app: html2amp
+org: ettenger
 
 custom:
   webpack:
