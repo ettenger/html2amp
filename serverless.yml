@@ -23,8 +23,14 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
+  amp:
+    handler: src/handler.amp
+    events:
+      - http:
+          method: get
+          path: amp
   parse:
-    handler: handler.parse
+    handler: src/handler.parse
     events:
       - http:
           method: get
