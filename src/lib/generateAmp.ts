@@ -324,13 +324,13 @@ export function generateAmp(page: Page) {
       <article class="hg-content-container">
         <div>
           <header>
-            <amp-img alt="image" src="${page.lead_image_url}"
+            <amp-img alt="${page.lead_image_caption}" src="${page.lead_image_url}"
               width="1600" height="1064" layout="responsive" class="hg-lead-image"></amp-img>
             <h1 class="hg-title">${page.title}</h1><time class="hg-pubdate"
               datetime="${page.date_published}">${page.date_published_formatted}</time>
           </header>
           <div class="hg-article-body">
-            ${page.content}
+            ${page.content_without_lead_image}
           </div>
         </div>
       </article>

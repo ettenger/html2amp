@@ -8,6 +8,7 @@ export class Page {
   lead_image_url: string;
   lead_image_caption: string;
   content: string;
+  content_without_lead_image: string;
   $: CheerioStatic;
   url: string;
   domain: string;
@@ -19,6 +20,8 @@ export class Page {
     this.date_published = parsedPage.date_published;
     this.lead_image_url = parsedPage.lead_image_url;
     this.content = parsedPage.content;
+    // Initialize this one with the full content in case we can't find and remove the lead image
+    this.content_without_lead_image = this.content;
     this.url = parsedPage.url;
     this.domain = parsedPage.domain;
     this.excerpt = parsedPage.excerpt;
@@ -30,7 +33,9 @@ export class Page {
       this.$ = cheerio.load(this.content);
       const leadImage = this.findLeadImage();
       if (leadImage) {
-        this.setLeadImageCaption(leadImage);
+        const leadImageParentNode = this.findLeadImageParentNode(leadImage);
+        this.setLeadImageCaption(leadImageParentNode);
+        this.removeLeadImage(leadImageParentNode);
       }
     } catch (e) {
       console.log(e);
@@ -47,15 +52,23 @@ export class Page {
     }
   }
 
-  private setLeadImageCaption(leadImage: Cheerio) {
-    // console.log(leadImage.attr('src'))
+  private findLeadImageParentNode(leadImage: Cheerio): Cheerio {
     let parentElem = leadImage.parent();
     // If parent of the image is a link, move one level up
     if (parentElem.is('a')) {
       parentElem = parentElem.parent();
     }
 
-    this.lead_image_caption = parentElem.children().last().html();
+    return parentElem;
+  }
+
+  private setLeadImageCaption(leadImageParentNode: Cheerio) {
+    this.lead_image_caption = leadImageParentNode.children().last().html();
+  }
+
+  private removeLeadImage(leadImageParentNode: Cheerio) {
+    leadImageParentNode.remove();
+    this.content_without_lead_image = this.$.html();
   }
 
   private findLeadImage(): Cheerio {
