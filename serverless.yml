@@ -23,9 +23,9 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  hello:
-    handler: handler.hello
+  parse:
+    handler: handler.parse
     events:
       - http:
           method: get
-          path: hello
+          path: parse
