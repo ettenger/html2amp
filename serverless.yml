@@ -1,5 +1,4 @@
-service:
-  name: html2amp
+service: html2amp
 # app and org for use with dashboard.serverless.com
 app: html2amp
 org: ettenger
