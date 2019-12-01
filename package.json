@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "sls offline",
+    "preview": "http-server -p 3001 ./preview",
     "test": "jest",
     "test-watch": "jest --watch"
   },
