@@ -6,14 +6,18 @@
   "private": true,
   "scripts": {
     "dev": "sls offline",
+    "preview": "http-server -p 3001 ./preview",
     "test": "jest",
     "test-watch": "jest --watch"
   },
   "dependencies": {
     "@postlight/mercury-parser": "^2.2.0",
+    "amphtml-validator": "^1.0.29",
     "cheerio": "^1.0.0-rc.3",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
     "jest": "^24.9.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "serverless-webpack": "^5.2.0",
     "source-map-support": "^0.5.10",
     "ts-jest": "^24.2.0",
@@ -27,6 +31,8 @@
     "@types/cheerio": "^0.22.14",
     "@types/jest": "^24.0.23",
     "@types/node": "^10.12.18",
+    "@types/request-promise": "^4.1.45",
+    "http-server": "^0.12.0",
     "serverless-offline": "^5.12.0"
   },
   "repository": {

@@ -34,3 +34,9 @@ functions:
       - http:
           method: get
           path: parse
+  validate:
+    handler: src/handler.validate
+    events:
+      - http:
+          method: get
+          path: validate

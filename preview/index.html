@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AMP RenderingPreview</title>
+  <script src="./test-articles.js"></script>
+  <style>
+    .row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+  </div>
+
+  <script>
+      const mainDiv = document.getElementById('main');
+  
+      const createDiv = (className) => {
+        const elem = document.createElement('div');
+        elem.className = className;
+        return elem;
+      };
+  
+      const createH1 = (text) => {
+        const elem = document.createElement('h1');
+        const textNode = document.createTextNode(text);
+        elem.appendChild(textNode);
+        return elem;
+      };
+  
+      const createIframe = (src) => {
+        const elem = document.createElement('iframe');
+        elem.width = '375px';
+        elem.height = '700px';
+        elem.src = src;
+        return elem;
+      };
+    
+      window.TEST_ARTICLES.forEach(articleUrl => {
+        const row = createDiv('row');
+  
+        const col1 = createDiv('column');
+        col1.appendChild(createH1('Original Page'));
+        col1.appendChild(createIframe(articleUrl));
+  
+        const col2 = createDiv('column');
+        col2.appendChild(createH1('AMP Page'));
+        col2.appendChild(createIframe('http://localhost:3000/amp?url=' + articleUrl));
+  
+        const col3 = createDiv('column');
+        col3.appendChild(createH1('Validation Results'));
+        col3.appendChild(createIframe('http://localhost:3000/validate?url=http://localhost:3000/amp?url=' + articleUrl));
+  
+        row.appendChild(col1);
+        row.appendChild(col2);
+        row.appendChild(col3);
+  
+        mainDiv.appendChild(row);
+      });
+    </script>
+</body>
+</html>
