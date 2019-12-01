@@ -9,3 +9,23 @@ export const validateAmpPage = async (ampUrl: string) => {
   
   return result;
 };
+
+export const formatValidationResultsAsHtml = (validationResults: any): string => {
+  return `
+  <!DOCTYPE html>
+  <html>
+    <body>
+      <h1 style="color: ${validationResults.status === 'FAIL' ? 'red' : 'green'};">
+        ${validationResults.status}
+      </h1>
+      <ul>
+      ${validationResults.errors.map(err => `
+        <li style="color: ${err.severity === 'ERROR' ? 'red' : 'orange'};">
+          ${err.message}<br>
+          <span style="text-decoration: underline;">${err.line}:${err.col}</span> (${err.specUrl})
+        </li>`)}
+      </ul>
+    </body>
+  </html>
+  `;
+};
