@@ -15,6 +15,9 @@ http://localhost:3000/parse?url=https://www.mrmoneymustache.com/2013/04/22/curin
 ### Try generating an AMP page
 http://localhost:3000/amp?url=https://www.websitebuilderexpert.com/building-websites/how-to-make-money-from-a-website/
 
+### Validate a locally generated AMP page
+http://localhost:3000/validate?url=http://localhost:3000/amp?url=https://www.mrmoneymustache.com/2013/04/22/curing-your-clown-like-car-habit/
+
 ## Deployed Dev Endpoints
 https://ko334eoxac.execute-api.us-east-1.amazonaws.com/dev/amp?url=
 

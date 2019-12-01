@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import Mercury from '@postlight/mercury-parser';
 import 'source-map-support/register';
-import { generateAmp, Page } from './lib';
+import { generateAmp, Page, validateAmpPage } from './lib';
 
 export const amp: APIGatewayProxyHandler = async (event) => {
   const params = event.queryStringParameters;
@@ -33,7 +33,7 @@ export const amp: APIGatewayProxyHandler = async (event) => {
       body: 'Error'
     };
   }
-}
+};
 
 export const parse: APIGatewayProxyHandler = async (event) => {
   const params = event.queryStringParameters;
@@ -60,4 +60,31 @@ export const parse: APIGatewayProxyHandler = async (event) => {
       body: 'Error parsing page'
     };
   }
-}
+};
+
+export const validate: APIGatewayProxyHandler = async (event) => {
+  const params = event.queryStringParameters;
+  if (!params || !params.url) {
+    return {
+      statusCode: 400,
+      body: 'Missing url'
+    };
+  }
+
+  try {
+    const results = await validateAmpPage(params.url);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(results)
+    };
+
+  } catch (e) {
+    console.log(e);
+
+    return {
+      statusCode: 500,
+      body: 'Error'
+    };
+  }
+};
